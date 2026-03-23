@@ -85,5 +85,6 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
-
+1. RwLock diperlukan karena data NOTIFICATIONS diakses oleh banyak thread secara bersamaan. Kita tidak menggunakan Mutex karena Mutex bersifat eksklusif (hanya satu thread yang bisa baca/tulis), sedangkan RwLock memungkinkan banyak thread membaca (read) secara paralel, yang jauh lebih efisien untuk operasi list_all_as_string.
+2. lazy_static digunakan karena Rust sangat ketat terhadap keamanan memori pada variabel statis yang bisa diubah (mutable). Berbeda dengan Java yang mengizinkan mutasi variabel statis secara bebas (namun tidak thread-safe), Rust mewajibkan mekanisme sinkronisasi seperti RwLock atau DashMap untuk menjamin tidak terjadi data race saat runtime.
 #### Reflection Subscriber-2
